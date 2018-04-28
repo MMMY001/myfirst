@@ -1,0 +1,23 @@
+div.main{
+	width: 100%;
+	heght:auto;
+/* 	height:auto !important; */
+	position: relative;
+}
+
+div.main .main_nav{
+	width:90px;
+	heght:200px;
+	margin-top:10px;
+	margin-left:20px;
+	background:#CCDDFF;
+	float: left;
+}
+
+div.main .main_content{
+	width: auto !important;
+	min-width:800px;
+	height: 600px;
+	padding-left:20px;
+	float: left;
+}

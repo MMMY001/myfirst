@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.my.mapper.SortMapper">
+
+	<!-- // 通过sorname查询sorid void selectSortId(String sorName); -->
+	<select id="selectSortId" parameterType="String" resultType="Integer">
+		select sorId from sort where sorName=#{sorName}
+	</select>
+
+</mapper>

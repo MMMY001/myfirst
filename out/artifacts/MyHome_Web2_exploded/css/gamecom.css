@@ -1,0 +1,35 @@
+html{
+	height:100%;
+}
+body{
+	margin: 0;
+	padding: 0;
+}
+
+div.main{
+	/* width: 1250px; */
+	width:100%;
+	height:auto !important;
+	min-height:680px;
+	background: #F6F6F6;
+	/* border-radius: 10px;
+	box-shadow: 5px 3px 10px rgba(0, 0, 0, 0.1); */
+	position: relative;
+}
+
+div.main .main_top{
+	width:1000px;
+	height:420px;
+	margin: auto;
+	position: relative;
+}
+
+div.main .main_bot{
+	margin-top:20px;
+	width:1000px;
+	height:420px;
+	margin: auto;
+}
+
+
+

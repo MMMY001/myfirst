@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.my.mapper.CustomerMapper">
+
+    <!-- 查询用户名与密码 验证登录 // 登录 public User userLogin(@Param("user_name")String
+        user_name,@Param("user_password")String user_password); -->
+    <select id="userLogin" resultType="User">
+		select user_name,user_password
+		from user where user_name=#{user_name}
+		and
+		user_password=#{user_password}
+	</select>
+
+    <!-- 根据用户名或密码 查询state // 查询state public Integer selectState(String user_name); -->
+    <select id="selectState" parameterType="String" resultType="Integer">
+		select state from user where user_name = #{user_name}
+	</select>
+
+    <!-- //判断用户名是否已经存在
+     public String selectUserName(String user_name);-->
+    <select id="selectUserName" parameterType="String" resultType="String">
+        SELECT user_name from user where user_name = #{user_name}
+    </select>
+
+
+    <!-- // 注册 public User userRegist(User user); -->
+    <insert id="userRegist" parameterType="User">
+		insert into
+		user(user_id,user_name,user_password,real_name,user_tel,user_email,state,user_sex)
+		values(#{user_id},#{user_name},#{user_password},#{real_name},#{user_tel},#{user_email},#{state},#{user_sex})
+	</insert>
+
+    <!-- 总的数据条数 // 查询总条数 public Integer customerCountByQueryVo(QueryVo vo); -->
+    <select id="customerCountByQueryVo" parameterType="QueryVo"
+            resultType="Integer">
+        select count(1) from user
+        <where>
+            <if test="user_name !=null and user_name != 'null'">
+                user_name like "%"#{user_name}"%"
+            </if>
+        </where>
+    </select>
+    <!-- 结果集合 // 查询的结果集 public List<User> selectCustomerListByQueryVo(QueryVo
+        vo); -->
+    <select id="selectCustomerListByQueryVo" parameterType="QueryVo" resultType="User">
+        select * from user
+        <where>
+            <if test="user_name !=null and user_name != 'null'">
+                user_name like "%"#{user_name}"%"
+            </if>
+
+            AND state = #{state}
+
+        </where>
+        limit #{startRow},#{size}
+    </select>
+
+    <!-- // 通过Id删除用户
+        public void deleteUserById(Integer id); -->
+    <delete id="deleteUserById" parameterType="Integer">
+        delete from user
+        <where>
+            user_id = #{user_id}
+        </where>
+    </delete>
+
+    <!-- 	// 通过用户名查询Id
+    public void selcetUidByUname(String user_name); -->
+    <select id="selcetUidByUname" parameterType="String" resultType="Integer">
+	select user_id from user where user_name=#{user_name}
+	</select>
+    <!-- // 通过用户ID查询原有资金
+     public float selectUserCashById(Integer user_id);-->
+    <select id="selectUserCashById" parameterType="Integer" resultType="Float">
+        select user_cash from  user where user_id=#{user_id}
+    </select>
+
+    <!--	// 将计算过后的资金存入数据库
+	public void rechargeCashById(RechargeVo vo);-->
+    <update id="rechargeCashById" parameterType="RechargeVo">
+         update user set user_cash = #{user_cash} where user_id=#{user_id}
+    </update>
+
+    <!-- // 购买游戏后剩余资金存入数据库
+     public void updateCashById(BuyGameVo vo);-->
+    <update id="updateCashById" parameterType="BuyGameVo">
+        update user set user_cash = #{user_cash} where user_id=#{user_id}
+    </update>
+
+    <!--// 通过用户名查询用户资金
+    public float selectUserCash(String user_name);-->
+    <select id="selectUserCash" parameterType="String" resultType="float">
+        select user_cash from user where user_name=#{user_name}
+    </select>
+    <!--// 通过用户名修改密码
+    public void updatePwd(User u);-->
+    <update id="updatePwd" parameterType="User">
+        update user set user_password=#{user_password} where user_name=#{user_name}
+    </update>
+
+</mapper>

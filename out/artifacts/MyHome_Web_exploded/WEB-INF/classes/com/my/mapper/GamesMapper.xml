@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.my.mapper.GamesMapper">
+
+
+	<!-- // 查询总数 public int gameCountByGameVo(GameVo vo); -->
+	<select id="gameCountByGameVo" parameterType="GameVo"
+		resultType="Integer">
+		select count(1) from games
+		<where>
+			<if test="game_name !=null and game_name != 'null'">
+				game_name like "%"#{game_name}"%"
+			</if>
+		</where>
+	</select>
+
+	<!-- // 查询游戏public List<Games> selectGamesListByGameVo(GameVo vo); -->
+	<select id="selectGamesListByGameVo" parameterType="GameVo"
+		resultType="Games">
+		select * from games
+		<where>
+			<if test="game_name !=null and game_name != 'null'">
+				game_name like "%"#{game_name}"%"
+			</if>
+		</where>
+		limit #{startRow},#{size}
+	</select>
+
+	<!-- // 通过Id删除游戏 public void deleteGameById(Integer id) ; -->
+	<delete id="deleteGameById" parameterType="Integer">
+		delete from games
+		<where>
+			game_id = #{game_id}
+		</where>
+	</delete>
+
+	<!-- // 通过ID查询游戏显示在修改框上 public Games selectGamesById(Integer id); -->
+	<select id="selectGamesById" parameterType="Integer" resultType="Games">
+		select * from games
+		<where>
+			game_id = #{id}
+		</where>
+	</select>
+
+	<!-- // 通过ID更新游戏信息 public void updateGameById(Games game); game_name,game_price,game_present,sorName -->
+	<update id="updateGameById" parameterType="Games">
+		update games
+		<set>
+			<if test="game_name != null">
+				game_name = #{game_name},
+			</if>
+			<if test="game_price != null">
+				game_price = #{game_price},
+			</if>
+			<if test="game_present != null">
+				game_present = #{game_present},
+			</if>
+			<if test="game_name != null">
+				sorName = #{sorName}
+			</if>
+			<if test="game_url != null">
+				game_url = #{game_url}
+			</if>
+			<where>
+				game_id = #{game_id}
+			</where>
+		</set>
+	</update>
+
+	<!-- // 添加游戏 public void insertGame(Games games); game_name,game_price,game_present,sorName -->
+	<insert id="insertGame" parameterType="Games">
+		insert into games( game_name,game_price,game_present,sorName,g_saleCount,sorId,game_url )
+		values( #{game_name},#{game_price},#{game_present},#{sorName},#{g_saleCount},#{sorId},#{game_url} )
+	</insert>
+
+	<!--// 根据ID获取要购买游戏的URL
+	public String selectUrlById(Integer id);-->
+	<select id="selectUrlById" parameterType="Integer" resultType="String">
+		SELECT game_url FROM  games WHERE game_id=#{game_id}
+	</select>
+
+	<!--// 根据游戏ID查询游戏价格
+	public float selectPriceById(Integer  id);-->
+    <select id="selectPriceById" parameterType="Integer" resultType="float">
+		SELECT game_price FROM games WHERE  game_id=#{game_id}
+	</select>
+
+	<!--// 通过游戏ID查询原有销量
+	public Integer selectSaleCountById(Integer id);-->
+	<select id="selectSaleCountById" parameterType="Integer" resultType="Integer">
+		select g_saleCount from games where game_id=#{game_id}
+	</select>
+
+<!--	// 通过游戏ID修改销售数量
+	public Integer updateSaleCountById(Games games);-->
+	<update id="updateSaleCountById" parameterType="Games" >
+      update games set g_saleCount = #{g_saleCount} where game_id=#{game_id}
+	</update>
+
+
+</mapper>

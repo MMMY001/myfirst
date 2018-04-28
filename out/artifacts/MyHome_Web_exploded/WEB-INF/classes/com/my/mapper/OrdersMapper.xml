@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.my.mapper.OrdersMapper">
+
+    <!--// 查询对应订单总条数 public int odersCountByOrdersVo(OrdersVo vo); -->
+    <select id="odersCountByOrdersVo" parameterType="OrdersVo"
+            resultType="Integer">
+        select count(1) from orders
+        <where>
+            user_id = #{user_id}
+        </where>
+    </select>
+
+    <!-- // 对应订单集合 public List<Orders> selectOrdersListByOrdersVo(OrdersVo vo); -->
+    <select id="selectOrdersListByOrdersVo" parameterType="OrdersVo"
+            resultType="Orders">
+        select * from orders
+        <where>
+            user_id = #{user_id}
+        </where>
+        limit #{startRow},#{size}
+    </select>
+
+    <!--// 加入订单
+    public void insertOrders(BuyGameVo vo);-->
+    <insert id="insertOrders" parameterType="BuyGameVo">
+     insert into orders(order_no,user_id,order_time,game_name,game_price,order_payment,game_url)
+     values(#{order_no},#{user_id},#{order_time},#{game_name},#{game_price},#{order_payment},#{game_url})
+   </insert>
+
+    <!--  //根据用户的Id删除订单
+    void deleteOrdersByUId(Integer id);-->
+    <delete id="deleteOrdersByUId" parameterType="Integer">
+        delete from orders
+        <where>
+            user_id = #{user_id}
+        </where>
+
+    </delete>
+
+    <!-- // 根据订单ID查询游戏URL
+        String selectUrlById(Integer id);-->
+    <select id="selectUrlById" parameterType="Integer" resultType="String">
+        SELECT game_url FROM orders
+        <where>
+            order_id = #{order_id}
+        </where>
+    </select>
+
+</mapper>

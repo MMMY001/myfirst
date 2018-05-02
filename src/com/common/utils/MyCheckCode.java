@@ -14,6 +14,17 @@ import java.util.Random;
  */
 
 public class MyCheckCode {
+
+    private String code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     /**
      * 绘画验证码
      *
@@ -22,7 +33,7 @@ public class MyCheckCode {
      */
     public String drawImg(ByteArrayOutputStream output) {
         // 获取验证码
-        String code = exampleCode();
+        code = exampleCode();
         int width = 70;
         int height = 25;
         BufferedImage bi = new BufferedImage(width, height,

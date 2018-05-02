@@ -111,9 +111,9 @@
                     <div class="layui-input-inline">
                         <input type="text" name="userInputCode" id="userInputCode" required email lay-verify="required"
                                placeholder="请输入邮箱验证码"
-                               autocomplete="off" class="layui-input" <%--onblur="checkInputCode();"--%>>
+                               autocomplete="off" class="layui-input" onblur="checkInputCode();">
                     </div>
-                    <button class=" layui-btn layui-btn-xs"  onclick="sendMail()">获取邮箱验证码</button>
+                    <button class=" layui-btn layui-btn-xs" onclick="sendMail()">获取邮箱验证码</button>
                 </div>
 
                 <div class="layui-form-item">
@@ -141,10 +141,10 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/layui/layui.js"></script>
 
 <script>
-    layui.use(['form', 'element','layer'], function () {
+    layui.use(['form', 'element', 'layer'], function () {
         var form = layui.form
             , element = layui.element
-            ,layer = layui.layer;
+            , layer = layui.layer;
 
 
         /* //监听提交
@@ -240,6 +240,17 @@
         }
     }
 
+    验证码不为空
+    function checkInputCode(){
+        var inputCode = document.getElementById("userInputCode").value;
+        if(inputCode == null || inputCode == ""){
+            layer.msg('验证码不能为空', {icon: 5});
+            $("#rstBtn").attr("disabled", true); // 代表按钮不可用
+        }else{
+            $("#rstBtn").attr("disabled", false);
+        }
+    }
+
     // 发送邮箱验证码
     function sendMail() {
         var uMail = document.getElementById("user_email").value;
@@ -249,9 +260,12 @@
             , type: "get"
             , datatype: "json"
             , data: {user_email: uMail}
-            ,success:function () {
-                layer.msg("发送成功!");
-            },error:function () {
+            , success: function (data) {
+                if (data == "OK") {
+                    layer.msg("发送成功!");
+                }
+
+            }, error: function () {
                 layer.msg("未知错误!");
             }
         });
@@ -261,6 +275,13 @@
 
     // 注册
     function checkMsg() {
+        var inputCode = document.getElementById("userInputCode").value;
+        if (inputCode == null || inputCode == "") {
+            layer.msg({icon: 5}, '验证码不能为空!');
+            $("#rstBtn").attr("disabled", true); // 代表按钮不可用
+        } else {
+            $("#rstBtn").attr("disabled", false);
+        }
         $.ajax({
             cache: true // 保留缓存数据
             , async: true // 设置成true，这标志着在请求开始后，其他代码依然能够执行。
@@ -272,6 +293,8 @@
                     alert("请输入注册信息")
                 } else if (data == "1") {
                     alert("用户名已存在!")
+                } else if (data == "9") {
+                    layer.msg("验证码错误!");
                 } else {
                     alert("注册成功!");
                     window.location.href = "${ pageContext.request.contextPath }/login.action";

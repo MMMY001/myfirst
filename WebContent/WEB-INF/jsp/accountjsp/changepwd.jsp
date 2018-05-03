@@ -92,8 +92,11 @@
             , success: function (data) {
                 if (data == "OK") {
                     alert("修改成功!");
+                    // 关闭当前窗口
                     var index = parent.layer.getFrameIndex(window.name);
                     parent.layer.close(index);
+                    // 父页面跳转到登陆界面
+                    parent.location.href ="${pageContext.request.contextPath}/login.action";
                 }
             },
             error: function () {

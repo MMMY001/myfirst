@@ -78,7 +78,7 @@
                     <br>
                     <h4>游戏大小:敬请期待</h4>
                     <div style="padding-top: 35px;">
-                            <button class="layui-btn layui-btn-danger" onclick="javascript:;">敬请期待</button>
+                            <button class="layui-btn layui-btn-danger" onclick="buy_the_game();">敬请期待</button>
                     </div>
                 </div>
             </div>
@@ -129,9 +129,17 @@
 <!-- 下半部分包裹 end-->
 <script type="text/javascript" src="${pageContext.request.contextPath }/layui/layui.js"></script>
 <script>
-    layui.use('element', function () {
-        var element = layui.element;
+    layui.use(['element', 'layer'], function () {
+        var element = layui.element
+        layer = layui.layer;
     });
+
+    function buy_the_game() {
+        layer.msg('敬请期待', {
+            icon: 6
+            , time: 2000
+        });
+    }
 </script>
 </body>
 </html>

@@ -88,12 +88,15 @@ public class MailUtil {
          * MimeMessage.RecipientType.CC：抄送
          * MimeMessage.RecipientType.BCC：密送
          */
+        // 添加抄送人，先给自己发一封邮件。防止554报错
+        msg.setRecipient(MimeMessage.RecipientType.CC,new InternetAddress(sendAddress));
+
         msg.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveAddress));
 
         // 设置邮件主题
         msg.setSubject("天悦游戏商城", "UTF-8");
         // 设置邮件正文
-        msg.setContent(mailCode, "text/html;charset=UTF-8");
+        msg.setContent("天悦游戏商城欢迎你,这是您的验证码:"+mailCode, "text/html;charset=UTF-8");
         // 设置邮件的发送时间,默认立即发送
         msg.setSentDate(new Date());
 

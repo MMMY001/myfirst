@@ -109,7 +109,7 @@
                 <div>
                     <label class="layui-form-label">验证码</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="userInputCode" id="userInputCode" required email lay-verify="required"
+                        <input type="text" name="userInputCode" id="userInputCode" required  lay-verify="required"
                                placeholder="请输入邮箱验证码"
                                autocomplete="off" class="layui-input" onblur="checkInputCode();">
                     </div>
@@ -240,7 +240,7 @@
         }
     }
 
-    验证码不为空
+    // 验证码不为空
     function checkInputCode(){
         var inputCode = document.getElementById("userInputCode").value;
         if(inputCode == null || inputCode == ""){
@@ -254,22 +254,25 @@
     // 发送邮箱验证码
     function sendMail() {
         var uMail = document.getElementById("user_email").value;
-        $.ajax({
-            async: true // 设置成true，这标志着在请求开始后，其他代码依然能够执行。
-            , url: "${pageContext.request.contextPath}/sendEMail"
-            , type: "get"
-            , datatype: "json"
-            , data: {user_email: uMail}
-            , success: function (data) {
-                if (data == "OK") {
-                    layer.msg("发送成功!");
+        if(uMail != null && uMail != ""){
+            $.ajax({
+                async: true // 设置成true，这标志着在请求开始后，其他代码依然能够执行。
+                , url: "${pageContext.request.contextPath}/sendEMail"
+                , type: "get"
+                , datatype: "json"
+                , data: {user_email: uMail}
+                , success: function (data) {
+                    if (data == "OK") {
+                        layer.msg("发送成功!");
+                    }
+
+                }, error: function () {
+                    layer.msg("未知错误!");
                 }
-
-            }, error: function () {
-                layer.msg("未知错误!");
-            }
-        });
-
+            });
+        }else{
+            layer.msg('你还没有填写邮箱呢', {icon: 5});
+        }
     }
 
 

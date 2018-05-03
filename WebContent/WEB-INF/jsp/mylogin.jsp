@@ -105,6 +105,12 @@
             <a class="layui-btn  layui-btn-warm" style="margin-left: 60px"
                href="${ pageContext.request.contextPath }/user_registPage.action">注册</a>
         </div>
+        <div style="margin-left: 110px;margin-top: 20px;">
+            <a style="cursor: pointer;"
+                    href="${pageContext.request.contextPath}/findPwd">
+                忘记密码?
+            </a>
+        </div>
         <!-- 操作按钮 -->
     </form>
     <!-- 登录框表单 -->

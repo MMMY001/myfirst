@@ -49,7 +49,8 @@
                 <li class="layui-nav-item"><a href="${ pageContext.request.contextPath }/myGames.action">我的游戏</a></li>
                 <li class="layui-nav-item "><a href="${ pageContext.request.contextPath }/myRecharge.action">充值中心</a>
                 </li>
-                <li class="layui-nav-item layui-this"><a href="${ pageContext.request.contextPath }/mySafety.action">安全中心</a></li>
+                <li class="layui-nav-item layui-this"><a href="${ pageContext.request.contextPath }/mySafety.action">安全中心</a>
+                </li>
             </ul>
         </div>
     </div>
@@ -70,12 +71,13 @@
                     onclick="layer_show('修改密码','${ pageContext.request.contextPath }/ChangePwd.action','500','300');">
                 修改密码
             </button>
-    </div>
-    <!-- 修改密码框 end-->
+        </div>
+        <!-- 修改密码框 end-->
 
-    <div class="layui-footer">
-        <!-- 底部固定区域 -->
-        © 天悦在线游戏商城 ----账户信息
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            © 天悦在线游戏商城 ----账户信息
+        </div>
     </div>
 </div>
 <script type="text/javascript" src="${pageContext.request.contextPath}/layui/layui.js"></script>
@@ -84,10 +86,10 @@
 
 <script>
     //JavaScript代码区域
-    layui.use(['element', 'form','layer'], function () {
+    layui.use(['element', 'form', 'layer'], function () {
         var element = layui.element
             , form = layui.form
-            ,layer =layui.layer;
+            , layer = layui.layer;
 
     });
 </script>

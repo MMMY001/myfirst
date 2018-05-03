@@ -129,9 +129,17 @@
 <!-- 下半部分包裹 end-->
 <script type="text/javascript" src="${pageContext.request.contextPath }/layui/layui.js"></script>
 <script>
-    layui.use('element', function () {
-        var element = layui.element;
+    layui.use(['element', 'layer'], function () {
+        var element = layui.element
+        layer = layui.layer;
     });
+
+    function buy_the_game() {
+        layer.msg('敬请期待', {
+            icon: 6
+            , time: 2000
+        });
+    }
 </script>
 </body>
 </html>

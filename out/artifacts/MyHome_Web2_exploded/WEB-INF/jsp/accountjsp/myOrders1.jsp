@@ -19,9 +19,7 @@
           type="text/css"/>
     <link href="${pageContext.request.contextPath}/css/bootstrap.min.css"
           rel="stylesheet" type="text/css"/>
-    <%--<!-- MetisMenu CSS -->
-    <link href="${pageContext.request.contextPath}/css/metisMenu.min.css" rel="stylesheet"
-          type="text/css"/>--%>
+
 
 </head>
 <body class="layui-layout-body">
@@ -136,21 +134,6 @@
         var element = layui.element
             , table = layui.table;
 
-        /*table.render({
-            elem: '#orders' // 指定原始表格元素选择器（推荐id选择器）
-            , height: 315 // 容器高度
-            ,url: '${pageContext.request.contextPath }/viewOrder.action' // 数据接口
-            ,page: true // 开启分页
-            , cols: [[ // 设置表头
-                {field: 'order_id', title: '订单ID', width: '15%'}
-                , {field: 'order_no', title: '流水号', width:'17%'}
-                , {field: 'order_time', title: '购买时间', width: '17%'}
-                , {field: 'game_name', title: '游戏名称', width: '17%'}
-                , {field: 'game_price', title: '购买价格', width: '17%'}
-                , {field: 'order_payment', title: '付款状态', width: '17%'}
-            ]]
-
-        });*/
     });
 </script>
 </body>

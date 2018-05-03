@@ -33,7 +33,9 @@
             <!-- style="display: none;" -->
             <c:if test="${ not empty user_name }">
                 <li class="layui-nav-item">
-                    <a href=""><i class="layui-icon" style="font-size: 20px; color: #ffff00;">&#xe658;</i>  <%=user_name%></a>
+                    <a href=""><i class="layui-icon"
+                                  style="font-size: 20px; color: #ffff00;">&#xe658;</i> <%=user_name%>
+                    </a>
                     <dl class="layui-nav-child">
                         <dd><a href="${ pageContext.request.contextPath }/accoutindex.action">个人中心</a></dd>
                         <dd><a href="##">安全管理</a></dd>
@@ -69,7 +71,8 @@
             <legend><h1 style="color: #FFB800;">伊苏8</h1></legend>
             <div class="layui-field-box" style="position: relative;">
                 <div style="float: left">
-                    <img src="${pageContext.request.contextPath }/image/YsVIII-1.jpg" style="display: block;width: 150px; height: 200px;"/>
+                    <img src="${pageContext.request.contextPath }/image/YsVIII-1.jpg"
+                         style="display: block;width: 150px; height: 200px;"/>
                 </div>
                 <div style="float: left;margin-left: 30px;">
                     <h4>制作发行：FALCOM</h4>
@@ -78,7 +81,7 @@
                     <br>
                     <h4>游戏大小:17.4</h4>
                     <div style="padding-top: 35px;">
-                            <button class="layui-btn layui-btn-danger" onclick="buy_the_game();">敬请期待 </button>
+                        <button class="layui-btn layui-btn-danger" onclick="buy_the_game();">敬请期待</button>
                     </div>
                 </div>
             </div>
@@ -129,9 +132,17 @@
 <!-- 下半部分包裹 end-->
 <script type="text/javascript" src="${pageContext.request.contextPath }/layui/layui.js"></script>
 <script>
-    layui.use('element', function () {
-        var element = layui.element;
+    layui.use(['element', 'layer'], function () {
+        var element = layui.element
+        layer = layui.layer;
     });
+
+    function buy_the_game() {
+        layer.msg('敬请期待', {
+            icon: 6
+            , time: 2000
+        });
+    }
 </script>
 </body>
 </html>

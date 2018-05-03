@@ -46,6 +46,15 @@ public class LoginExitController {
     }
 
 
+    /**
+     * 用户登录
+     *
+     * @param user_name
+     * @param user_password
+     * @param session
+     * @param request
+     * @return
+     */
     // 登录判断
     @RequestMapping(value = "/user_login.action", method = RequestMethod.POST)
     public @ResponseBody
@@ -103,7 +112,7 @@ public class LoginExitController {
         // 声明校验码工具类
         MyCheckCode myCheckCode = new MyCheckCode();
         // 获得校验码
-         mailcode = myCheckCode.exampleCode();
+        mailcode = myCheckCode.exampleCode();
         // 声明邮箱工具类
         MailUtil mailUtil = new MailUtil();
         // 发送校验码到用户邮箱
@@ -115,6 +124,36 @@ public class LoginExitController {
         return "OK";
     }
 
+    /**
+     * 忘记密码
+     *
+     * @return
+     */
+    //  跳转邮箱验证页面
+    @RequestMapping(value = "/findPwd")
+    public String findPwd() {
+        return "accountjsp/findpwd";
+    }
+
+    // 验证邮箱
+    @RequestMapping(value = "/CheckMail")
+    public @ResponseBody
+    String CheckMail(String InputCode) {
+        if (InputCode.equals(mailcode)) {
+            return "OK";
+        } else {
+            return "error";
+        }
+    }
+
+
+    /**
+     * 用户注册
+     *
+     * @param user
+     * @param userInputCode
+     * @return
+     */
     // 用户注册
     @RequestMapping(value = "/user_regist.action", method = RequestMethod.POST)
     public @ResponseBody
@@ -135,7 +174,7 @@ public class LoginExitController {
                 // 注册成功跳到登录页面
                 return "2";
             }
-        }else{
+        } else {
             return "9";
         }
     }

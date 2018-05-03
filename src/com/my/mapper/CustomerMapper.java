@@ -49,4 +49,7 @@ public interface CustomerMapper {
 
 	// 通过用户名修改密码
     public void updatePwd(User u);
+
+	// 查询邮箱是否存在
+    Integer selectUIdByEmail(String email);
 }

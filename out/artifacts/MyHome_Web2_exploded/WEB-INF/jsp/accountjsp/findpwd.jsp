@@ -23,20 +23,23 @@
                 <div class="layui-input-inline">
                     <input type="text" name="user_email" id="user_email" required email lay-verify="required|email"
                            placeholder="请输入电子邮箱"
-                           autocomplete="off" class="layui-input" <%--onblur="checkEmail();"--%>>
+                           autocomplete="off" class="layui-input" onblur="checkEmail();">
                 </div>
+                <div class="layui-form-mid layui-word-aux" id="email_tip"></div>
             </div>
 
-            <div>
+            <div class="layui-form-item">
                 <label class="layui-form-label">验证码</label>
                 <div class="layui-input-inline">
                     <input type="text" name="userInputCode" id="userInputCode"
                            placeholder="请输入邮箱验证码"
                            autocomplete="off" class="layui-input" <%--onblur="checkInputCode();"--%>>
                 </div>
-                <button class=" layui-btn layui-btn-xs" onclick="sendMail()">获取邮箱验证码</button>
+                <div class="layui-form-mid layui-word-aux">
+                    <button class=" layui-btn layui-btn-xs" id="sendEmailBtn" onclick="sendMail()">获取邮箱验证码</button>
+                </div>
             </div>
-            <div  style="margin-left: 110px;margin-top: 30px;">
+            <div style="margin-left: 110px;margin-top: 30px;">
                 <button class="layui-btn" type="submit" id="Pwdbtn" onclick="CheckCode()">验证邮箱</button>
             </div>
         </form>
@@ -47,28 +50,50 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/layui/layui.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/cgPwd.js"></script>
 <script>
-    layui.use('layer',function () {
+    layui.use('layer', function () {
         var layer = layui.layer;
     });
+
+    // 验证电子邮箱
+    function checkEmail() {
+        var email = document.getElementById("user_email").value;
+        var email_tip = document.getElementById("email_tip");
+        var pattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        if (email == null || email == '') {
+            email_tip.innerText = "邮箱不能为空!";
+            $("#Pwdbtn").attr("disabled", true); // 代表按钮不可用
+        } else if (pattern.test(email)) {
+            email_tip.innerText = "邮箱输入正确!";
+            $("#Pwdbtn").attr("disabled", false);
+            $("#sendEmailBtn").attr("disabled", false); // 代表按钮可用
+        } else {
+            email_tip.innerText = "邮箱格式错误!";
+            $("#Pwdbtn").attr("disabled", true); // 代表按钮不可用
+            $("#sendEmailBtn").attr("disabled", true); // 代表按钮不可用
+        }
+    }
+
+
     // 发送邮箱验证码
     function sendMail() {
         var uMail = document.getElementById("user_email").value;
-        $.ajax({
-            async: true // 设置成true，这标志着在请求开始后，其他代码依然能够执行。
-            , url: "${pageContext.request.contextPath}/sendEMail"
-            , type: "get"
-            , datatype: "json"
-            , data: {user_email: uMail}
-            , success: function (data) {
-                if (data == "OK") {
-                    layer.msg("发送成功!");
+        if (uMail != null && uMail != "") {
+            $.ajax({
+                async: true // 设置成true，这标志着在请求开始后，其他代码依然能够执行。
+                , url: "${pageContext.request.contextPath}/sendEMail"
+                , type: "get"
+                , datatype: "json"
+                , data: {user_email: uMail}
+                , success: function (data) {
+                    if (data == "OK") {
+                        layer.msg("发送成功!");
+                    }
+
+                }, error: function () {
+                    layer.msg("未知错误!");
                 }
-
-            }, error: function () {
-                layer.msg("未知错误!");
-            }
-        });
-
+            });
+        }
     }
 
     function CheckCode() {

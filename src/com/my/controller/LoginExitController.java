@@ -104,24 +104,32 @@ public class LoginExitController {
     //发送邮箱验证码
     private static String mailcode;
 
+    // 注册邮箱校验
     @RequestMapping(value = "/sendEMail", method = RequestMethod.GET)
     public @ResponseBody
     String sendMailCode(@RequestParam String user_email) {
         String email = user_email;
 
-        // 声明校验码工具类
-        MyCheckCode myCheckCode = new MyCheckCode();
-        // 获得校验码
-        mailcode = myCheckCode.exampleCode();
-        // 声明邮箱工具类
-        MailUtil mailUtil = new MailUtil();
-        // 发送校验码到用户邮箱
-        try {
-            mailUtil.MailUtil(email, mailcode);
-        } catch (Exception e) {
-            e.printStackTrace();
+        // 校验邮箱是否已经存在
+        Integer email_id = userService.selectUIdByEmail(email);
+
+        if (email_id != null) {
+            return "existence";
+        } else {
+            // 声明校验码工具类
+            MyCheckCode myCheckCode = new MyCheckCode();
+            // 获得校验码
+            mailcode = myCheckCode.exampleCode();
+            // 声明邮箱工具类
+            MailUtil mailUtil = new MailUtil();
+            // 发送校验码到用户邮箱
+            try {
+                mailUtil.MailUtil(email, mailcode);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return "OK";
         }
-        return "OK";
     }
 
     /**
@@ -158,9 +166,8 @@ public class LoginExitController {
     @RequestMapping(value = "/user_regist.action", method = RequestMethod.POST)
     public @ResponseBody
     String user_Regist(User user, String userInputCode) {
+
         String inputCode = userInputCode;
-        System.out.println("用户输入" + inputCode);
-        System.out.print("后台生成" + mailcode);
         if (inputCode.equals(mailcode)) {  //  判断验证码是否正确
             // 检验用户名是否已存在
             String existUserName = userService.selectUserName(user.getUser_name());
@@ -177,6 +184,8 @@ public class LoginExitController {
         } else {
             return "9";
         }
+
+
     }
 
     // 退出登录

@@ -106,14 +106,16 @@
                     <div class="layui-form-mid layui-word-aux" id="email_tip"></div>
                 </div>
 
-                <div>
+                <div class="layui-form-item">
                     <label class="layui-form-label">验证码</label>
                     <div class="layui-input-inline">
                         <input type="text" name="userInputCode" id="userInputCode" required  lay-verify="required"
                                placeholder="请输入邮箱验证码"
                                autocomplete="off" class="layui-input" onblur="checkInputCode();">
                     </div>
-                    <button class=" layui-btn layui-btn-xs" onclick="sendMail()">获取邮箱验证码</button>
+                    <div class="layui-form-mid layui-word-aux" >
+                        <button class=" layui-btn layui-btn-xs" id="sendEmailBtn" onclick="sendMail()">获取邮箱验证码</button>
+                    </div>
                 </div>
 
                 <div class="layui-form-item">
@@ -234,9 +236,11 @@
         } else if (pattern.test(email)) {
             email_tip.innerText = "邮箱输入正确!";
             $("#rstBtn").attr("disabled", false);
+            $("#sendEmailBtn").attr("disabled", false); // 代表按钮可用
         } else {
             email_tip.innerText = "邮箱格式错误!";
             $("#rstBtn").attr("disabled", true); // 代表按钮不可用
+            $("#sendEmailBtn").attr("disabled", true); // 代表按钮不可用
         }
     }
 
@@ -263,7 +267,9 @@
                 , data: {user_email: uMail}
                 , success: function (data) {
                     if (data == "OK") {
-                        layer.msg("发送成功!");
+                        layer.msg('发送成功!',{icon:6});
+                    }else if(data == "existence"){
+                        layer.msg('邮箱已存在',{icon: 5});
                     }
 
                 }, error: function () {
@@ -279,7 +285,7 @@
     // 注册
     function checkMsg() {
         var inputCode = document.getElementById("userInputCode").value;
-        if (inputCode == null || inputCode == "") {
+        if (inputCode == null && inputCode == "") {
             layer.msg({icon: 5}, '验证码不能为空!');
             $("#rstBtn").attr("disabled", true); // 代表按钮不可用
         } else {

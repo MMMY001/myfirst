@@ -101,4 +101,10 @@
         update user set user_password=#{user_password} where user_name=#{user_name}
     </update>
 
+    <!--// 查询邮箱是否存在
+    Integer selectUIdByEmail(String email);-->
+    <select id="selectUIdByEmail" parameterType="String" resultType="Integer">
+        select user_id from user where user_email=#{user_email}
+    </select>
+
 </mapper>

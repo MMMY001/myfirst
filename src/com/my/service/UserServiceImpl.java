@@ -173,4 +173,9 @@ public class UserServiceImpl implements UserService {
         customerMapper.updatePwd(u);
     }
 
+    // 查询邮箱是否存在
+    public Integer selectUIdByEmail(String email){
+        return customerMapper.selectUIdByEmail(email);
+    }
+
 }

@@ -68,6 +68,37 @@ public class JumpPage {
      * 游戏页面跳转
      * @return
      */
+
+    @RequestMapping( value = "/JumpPRG")
+    public String JumpPRG(){
+        return "PRG";
+    }
+
+    @RequestMapping( value = "/JumpSPG")
+    public String JumpSPG(){
+        return "SPG";
+    }
+
+    @RequestMapping( value = "/JumpSLG")
+    public String JumpSLG(){
+        return "SLG";
+    }
+
+    @RequestMapping( value = "/JumpSIM")
+    public String JumpSIM(){
+        return "SIM";
+    }
+
+    @RequestMapping( value = "/JumpFPS")
+    public String JumpFPS(){
+        return "FPS";
+    }
+
+    @RequestMapping( value = "/JumpACT")
+    public String JumpACT(){
+        return "ACT";
+    }
+
     @RequestMapping(value = "/gamejsp/jpghost.action")
     public String jumpghost() {
         return "gamejsp/ghost";

@@ -77,12 +77,12 @@ String name=(String)( request.getSession().getAttribute("user_name"));*/
     <!-- 游戏分类导航条-->
     <div style="width: 100%; height: auto;text-align: center;">
     <span class="layui-breadcrumb " lay-separator="|">
-    <a href=""><span class="layui-badge">角色扮演PRG</span></a>
-    <a href=""><span class="layui-badge layui-bg-orange">体育竞技SPG</span></a>
-    <a href=""><span class="layui-badge layui-bg-blue">策略战棋SLG</span></a>
-    <a href=""><span class="layui-badge layui-bg-cyan">模拟经营SIM</span></a>
-    <a href=""><span class="layui-badge layui-bg-green">第一人称射击游戏FPS</span></a>
-    <a href=""><span class="layui-badge layui-bg-black">动作游戏ACT</span></a>
+    <a href="${pageContext.request.contextPath}/JumpPRG"><span class="layui-badge">角色扮演PRG</span></a>
+    <a href="${pageContext.request.contextPath}/JumpSPG"><span class="layui-badge layui-bg-orange">体育竞技SPG</span></a>
+    <a href="${pageContext.request.contextPath}/JumpSLG"><span class="layui-badge layui-bg-blue">策略战棋SLG</span></a>
+    <a href="${pageContext.request.contextPath}/JumpSIM"><span class="layui-badge layui-bg-cyan">模拟经营SIM</span></a>
+    <a href="${pageContext.request.contextPath}/JumpFPS"><span class="layui-badge layui-bg-green">第一人称射击游戏FPS</span></a>
+    <a href="${pageContext.request.contextPath}/JumpACT"><span class="layui-badge layui-bg-black">动作游戏ACT</span></a>
     </span>
     </div>
     <!-- 游戏分类导航条-->

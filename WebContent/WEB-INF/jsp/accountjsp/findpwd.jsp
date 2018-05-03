@@ -31,9 +31,9 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">验证码</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="userInputCode" id="userInputCode"
+                    <input type="text" name="user_input_code" id="user_input_code"
                            placeholder="请输入邮箱验证码"
-                           autocomplete="off" class="layui-input" <%--onblur="checkInputCode();"--%>>
+                           autocomplete="off" class="layui-input" >
                 </div>
                 <div class="layui-form-mid layui-word-aux">
                     <button class=" layui-btn layui-btn-xs" id="sendEmailBtn" onclick="sendMail()">获取邮箱验证码</button>
@@ -77,16 +77,18 @@
     // 发送邮箱验证码
     function sendMail() {
         var uMail = document.getElementById("user_email").value;
+
         if (uMail != null && uMail != "") {
             $.ajax({
                 async: true // 设置成true，这标志着在请求开始后，其他代码依然能够执行。
-                , url: "${pageContext.request.contextPath}/sendEMail"
+                , url: "${pageContext.request.contextPath}/sendEMail2"
                 , type: "get"
-                , datatype: "json"
                 , data: {user_email: uMail}
                 , success: function (data) {
                     if (data == "OK") {
-                        layer.msg("发送成功!");
+                        layer.msg('发送成功',{icon:6});
+                    }else{
+                        layer.msg('邮箱未被使用',{icon:5});
                     }
 
                 }, error: function () {
@@ -97,19 +99,20 @@
     }
 
     function CheckCode() {
-        var userInputCode = document.getElementById("userInputCode").value;
+        var user_input_code = document.getElementById("user_input_code").value;
+        console.log(user_input_code);
         $.ajax({
             sync: true // 设置成true，这标志着在请求开始后，其他代码依然能够执行。
             , url: "${pageContext.request.contextPath}/CheckMail"
-            , type: "get"
-            , datatype: "json"
-            , date: {InputCode: userInputCode}
+            , data: {user_input_code: user_input_code}
             , success: function (data) {
                 if (data == "OK") {
                     layer_show('更新密码', '${ pageContext.request.contextPath }/ChangePwd.action', '500', '300');
+                }else{
+                    layer.msg('验证码错误哦', {icon: 5});
                 }
             }, error: function () {
-                layer.msg('验证码错误哦', {icon: 5});
+                layer.msg('未知错误', {icon: 5});
             }
         });
     }

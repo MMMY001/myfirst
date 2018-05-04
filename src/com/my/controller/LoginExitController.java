@@ -46,6 +46,7 @@ public class LoginExitController {
     }
 
 
+
     /**
      * 用户登录
      *
@@ -104,6 +105,27 @@ public class LoginExitController {
     //发送邮箱验证码
     private static String mailcode;
 
+    /**
+     *
+     * 发送验证码
+     */
+
+    public String sendCodeCommon(String email){
+        // 声明校验码工具类
+        MyCheckCode myCheckCode = new MyCheckCode();
+        // 获得校验码
+        mailcode = myCheckCode.exampleCode();
+        // 声明邮箱工具类
+        MailUtil mailUtil = new MailUtil();
+        // 发送校验码到用户邮箱
+        try {
+            mailUtil.MailUtil(email, mailcode);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "OK";
+    }
+
     // 注册邮箱校验
     @RequestMapping(value = "/sendEMail", method = RequestMethod.GET)
     public @ResponseBody
@@ -116,21 +138,12 @@ public class LoginExitController {
         if (email_id != null) {
             return "existence";
         } else {
-            // 声明校验码工具类
-            MyCheckCode myCheckCode = new MyCheckCode();
-            // 获得校验码
-            mailcode = myCheckCode.exampleCode();
-            // 声明邮箱工具类
-            MailUtil mailUtil = new MailUtil();
-            // 发送校验码到用户邮箱
-            try {
-                mailUtil.MailUtil(email, mailcode);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return "OK";
+            return sendCodeCommon(email);
         }
     }
+
+
+
 
     /**
      * 忘记密码
@@ -142,18 +155,40 @@ public class LoginExitController {
     public String findPwd() {
         return "accountjsp/findpwd";
     }
+    // 忘记密码验证码发送
+    @RequestMapping(value = "/sendEMail2", method = RequestMethod.GET)
+    public @ResponseBody
+    String sendEMail2(@RequestParam String user_email) {
+        String email = user_email;
+        // 校验邮箱是否已经存在
+        Integer email_id = userService.selectUIdByEmail(email);
 
-    // 验证邮箱
+        if(email_id != null){
+            return sendCodeCommon(email);
+        }else {
+            return "None";
+        }
+
+
+    }
+
+    // 验证码是否输入正确
     @RequestMapping(value = "/CheckMail")
     public @ResponseBody
-    String CheckMail(String InputCode) {
-        if (InputCode.equals(mailcode)) {
+    String CheckMail(String user_input_code) {
+
+        if (user_input_code.equals(mailcode)) {
             return "OK";
         } else {
             return "error";
         }
     }
 
+    // 通过验证弹出更改框
+    @RequestMapping( value = "/UpdatePage.action")
+    public String UpdatePage(){
+        return "accountjsp/updatePwd";
+    }
 
     /**
      * 用户注册

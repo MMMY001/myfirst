@@ -39,10 +39,22 @@ public class userCenterController {
         user.setUser_password(user_password);
         // 通过用户名修改密码
         userService.updatePwd(user);
+
         return "OK";
+    }
 
+    // 忘记密码
+    @RequestMapping(value = "/UpdatePwd.action")
+    public @ResponseBody
+    String UpdatePwd(String user_name, String user_password) {
+        User user = new User();
+        user.setUser_name(user_name);
+        user.setUser_password(user_password);
 
-//        return "mylogin";
+        // 通过用户名修改密码
+        userService.updatePwd(user);
+
+        return "OK";
     }
 
     // 个人资金查询
@@ -143,7 +155,7 @@ public class userCenterController {
         String url = ordersService.selectUrlById(order_id);
         if (url != null || url != "") {
             return url;
-        }else{
+        } else {
             return null;
         }
     }

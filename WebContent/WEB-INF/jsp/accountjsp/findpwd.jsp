@@ -107,7 +107,7 @@
             , data: {user_input_code: user_input_code}
             , success: function (data) {
                 if (data == "OK") {
-                    layer_show('更新密码', '${ pageContext.request.contextPath }/ChangePwd.action', '500', '300');
+                    layer_show('更新密码', '${ pageContext.request.contextPath }/UpdatePage.action', '500', '300');
                 }else{
                     layer.msg('验证码错误哦', {icon: 5});
                 }

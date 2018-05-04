@@ -169,7 +169,10 @@ public class UserServiceImpl implements UserService {
 
     // 通过用户名修改密码
     public void updatePwd(User u){
-
+        MD5Util md5Util =new MD5Util();
+        // 对密码进行MD5加密
+        String password = u.getUser_password();
+        u.setUser_password(md5Util.MD5Util(password));
         customerMapper.updatePwd(u);
     }
 

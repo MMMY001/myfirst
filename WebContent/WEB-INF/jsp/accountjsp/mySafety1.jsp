@@ -3,9 +3,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-    /* String user_name = (String) request.getAttribute("user_name");
-      获取登录的用户名
-    String name=(String)( request.getSession().getAttribute("user_name"));*/
+
     Object user_name = request.getSession().getAttribute("user_name");
     Object user_cash = request.getSession().getAttribute("user_cash");
 %>

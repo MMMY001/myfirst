@@ -3,11 +3,8 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-    /* String user_name = (String) request.getAttribute("user_name");
-      获取登录的用户名
-    String name=(String)( request.getSession().getAttribute("user_name"));*/
     Object user_name = request.getSession().getAttribute("user_name");
-    Object user_cash = request.getSession().getAttribute("user_cash");
+    Object user_email = request.getSession().getAttribute("user_email");
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
@@ -92,8 +89,11 @@
             , success: function (data) {
                 if (data == "OK") {
                     alert("修改成功!");
+                    // 关闭当前窗口
                     var index = parent.layer.getFrameIndex(window.name);
                     parent.layer.close(index);
+                    // 父页面跳转到登陆界面
+                    parent.location.href ="${pageContext.request.contextPath}/login.action";
                 }
             },
             error: function () {

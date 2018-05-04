@@ -2,10 +2,7 @@
          pageEncoding="utf-8" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-    Object user_name = request.getSession().getAttribute("user_name");
-    Object user_email = request.getSession().getAttribute("user_email");
-%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -16,6 +13,15 @@
 <body>
 <!-- 修改密码 --> <%--action="${pageContext.request.contextPath}/changePwd.action"--%>
 <form method="post" onsubmit="return false;" action="##">
+    <div class="layui-form-item" style="padding-top: 30px;">
+        <label class="layui-form-label">用户名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="user_name" id="user_name" required lay-verify="required"
+                   placeholder="请输入..."
+                   autocomplete="off" class="layui-input" onblur="checkPwd();">
+        </div>
+        <div class="layui-form-mid layui-word-aux" id="tip_0"></div>
+    </div>
     <div class="layui-form-item" style="padding-top: 30px;">
         <label class="layui-form-label">密码框</label>
         <div class="layui-input-inline">
@@ -42,6 +48,19 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/layui/layui.js"></script>
 <script>
+
+    // 验证用户名输入
+    function checkPwd() {
+        var name = document.getElementById("user_name").value;
+        var tip_0 = document.getElementById("tip_0");
+
+        if (name == null || name == '') {
+            tip_0.innerText = "用户名不能为空!";
+            $("#Pwdbtn").attr("disabled", true); // 代表按钮不可用
+        } else{
+            $("#Pwdbtn").attr("disabled", false); // 代表按钮可用
+        }
+    }
 
     // 验证密码输入
     function checkPwd() {
@@ -78,14 +97,15 @@
     }
 
     function ChPwd() {
+        var user_name = document.getElementById("user_name").value;
         var user_password = document.getElementById("user_password").value;
         $.ajax({
             cache: true // 保留缓存数据
             , async: true // 设置成true，这标志着在请求开始后，其他代码依然能够执行。如果把这个选项设置成false，这意味着所有的请求都不再是异步的了，这也会导致浏览器被锁死
             , type: "POST" // 方法类型
             // , dataType: "json"  // 返回值类型
-            , url: "${pageContext.request.contextPath}/changePwd.action"  // url
-            , data: {user_password: user_password}
+            , url: "${pageContext.request.contextPath}/UpdatePwd.action"  // url
+            , data: {user_name:user_name,user_password: user_password}
             , success: function (data) {
                 if (data == "OK") {
                     alert("修改成功!");
@@ -97,7 +117,7 @@
                 }
             },
             error: function () {
-
+                layer.mag('未知错误',{icon:5})
             }
         });
     }

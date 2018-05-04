@@ -33,7 +33,7 @@
                 <div class="layui-input-inline">
                     <input type="text" name="user_input_code" id="user_input_code"
                            placeholder="请输入邮箱验证码"
-                           autocomplete="off" class="layui-input" >
+                           autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-mid layui-word-aux">
                     <button class=" layui-btn layui-btn-xs" id="sendEmailBtn" onclick="sendMail()">获取邮箱验证码</button>
@@ -86,9 +86,9 @@
                 , data: {user_email: uMail}
                 , success: function (data) {
                     if (data == "OK") {
-                        layer.msg('发送成功',{icon:6});
-                    }else{
-                        layer.msg('邮箱未被使用',{icon:5});
+                        layer.msg('发送成功', {icon: 6});
+                    } else {
+                        layer.msg('邮箱未被使用', {icon: 5});
                     }
 
                 }, error: function () {
@@ -108,7 +108,7 @@
             , success: function (data) {
                 if (data == "OK") {
                     layer_show('更新密码', '${ pageContext.request.contextPath }/UpdatePage.action', '500', '300');
-                }else{
+                } else {
                     layer.msg('验证码错误哦', {icon: 5});
                 }
             }, error: function () {

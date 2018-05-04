@@ -49,6 +49,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/layui/layui.js"></script>
 <script>
 
+
     // 验证用户名输入
     function checkPwd() {
         var name = document.getElementById("user_name").value;
@@ -113,7 +114,7 @@
                     var index = parent.layer.getFrameIndex(window.name);
                     parent.layer.close(index);
                     // 父页面跳转到登陆界面
-                    parent.location.href ="${pageContext.request.contextPath}/login.action";
+                    parent.location.href = "${pageContext.request.contextPath}/login.action";
                 }
             },
             error: function () {

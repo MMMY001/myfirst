@@ -29,8 +29,8 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="layui-icon" style="font-size: 20px; color: #4cae4c;">&#xe658;</i><%=user_name%></a>
                     <dl class="layui-nav-child">
-                        <dd><a href="<%=user_name%>accoutindex.action">个人中心</a></dd>
-                        <dd><a href="<%=user_name%>exit_logon.action">退出登录</a></dd>
+                        <dd><a href="${pageContext.request.contextPath}/accoutindex.action">个人中心</a></dd>
+                        <dd><a href="${pageContext.request.contextPath}/exit_logon.action">退出登录</a></dd>
                     </dl>
                 </li>
             </c:if>

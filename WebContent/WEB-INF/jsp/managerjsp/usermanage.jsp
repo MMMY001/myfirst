@@ -34,11 +34,7 @@
 <link href="<%=basePath%>css/sadmin-2.css" rel="stylesheet"
 	type="text/css" />
 
-<!-- Custom Fonts -->
-<%-- <link href="<%=basePath%>css/font-awesome.min.css" rel="stylesheet"
-	type="text/css" type="text/css" /> --%>
-<link href="<%=basePath%>css/boot-crm.css" rel="stylesheet"
-	type="text/css" type="text/css" />
+
 </head>
 
 <body>

@@ -109,11 +109,11 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">验证码</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="userInputCode" id="userInputCode" required  lay-verify="required"
+                        <input type="text" name="userInputCode" id="userInputCode" required lay-verify="required"
                                placeholder="请输入邮箱验证码"
                                autocomplete="off" class="layui-input" onblur="checkInputCode();">
                     </div>
-                    <div class="layui-form-mid layui-word-aux" >
+                    <div class="layui-form-mid layui-word-aux">
                         <button class=" layui-btn layui-btn-xs" id="sendEmailBtn" onclick="sendMail()">获取邮箱验证码</button>
                     </div>
                 </div>
@@ -148,12 +148,6 @@
             , element = layui.element
             , layer = layui.layer;
 
-
-        /* //监听提交
-         form.on('submit(formMsg)', function (data) {
-             layer.msg(JSON.stringify(data.field));
-             return false;
-         });*/
     });
 
     // 验证用户名输入
@@ -245,12 +239,12 @@
     }
 
     // 验证码不为空
-    function checkInputCode(){
+    function checkInputCode() {
         var inputCode = document.getElementById("userInputCode").value;
-        if(inputCode == null || inputCode == ""){
-            layer.msg('验证码不能为空', {icon: 5});
+        if (inputCode == null || inputCode == "") {
+            layer.msg('验证码不能为空', {icon: 2});
             $("#rstBtn").attr("disabled", true); // 代表按钮不可用
-        }else{
+        } else {
             $("#rstBtn").attr("disabled", false);
         }
     }
@@ -258,7 +252,7 @@
     // 发送邮箱验证码
     function sendMail() {
         var uMail = document.getElementById("user_email").value;
-        if(uMail != null && uMail != ""){
+        if (uMail != null && uMail != "") {
             $.ajax({
                 async: true // 设置成true，这标志着在请求开始后，其他代码依然能够执行。
                 , url: "${pageContext.request.contextPath}/sendEMail"
@@ -267,17 +261,17 @@
                 , data: {user_email: uMail}
                 , success: function (data) {
                     if (data == "OK") {
-                        layer.msg('发送成功!',{icon:6});
-                    }else if(data == "existence"){
-                        layer.msg('邮箱已存在',{icon: 5});
+                        layer.msg('发送成功!', {icon: 1});
+                    } else if (data == "existence") {
+                        layer.msg('邮箱已存在', {icon: 2});
                     }
 
                 }, error: function () {
-                    layer.msg("未知错误!");
+                    layer.msg("未知错误!", {icon: 2});
                 }
             });
-        }else{
-            layer.msg('你还没有填写邮箱呢', {icon: 5});
+        } else {
+            layer.msg('你还没有填写邮箱呢', {icon: 2});
         }
     }
 
@@ -299,18 +293,20 @@
             , data: $('#form1').serialize()
             , success: function (data) {
                 if (data == "0") {
-                    alert("请输入注册信息")
+                    layer.msg("请输入注册信息!",{icon: 2});
                 } else if (data == "1") {
-                    alert("用户名已存在!")
+                    layer.msg("用户名已存在!",{icon: 2});
                 } else if (data == "9") {
-                    layer.msg("验证码错误!");
+                    layer.msg("验证码错误!",{icon: 2});
                 } else {
-                    alert("注册成功!");
+                    layer.msg("注册成功!",{icon: 1});
                     window.location.href = "${ pageContext.request.contextPath }/login.action";
                 }
 
             }, error: function () {
-                alert("未知错误!")
+                layer.msg("未知错误!",{icon: 2}, function(){
+                    window.location.reload();
+                });
             }
         });
 

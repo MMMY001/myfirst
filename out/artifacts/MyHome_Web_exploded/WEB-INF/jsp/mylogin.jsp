@@ -107,7 +107,7 @@
         </div>
         <div style="margin-left: 110px;margin-top: 20px;">
             <a style="cursor: pointer;"
-                    href="${pageContext.request.contextPath}/findPwd">
+               href="${pageContext.request.contextPath}/findPwd">
                 忘记密码?
             </a>
         </div>
@@ -120,13 +120,10 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/layui/layui.js"></script>
 <script>
     //注意：导航 依赖 element 模块，否则无法进行功能性操作
-    layui.use('element', function () {
-        var element = layui.element;
-
-        //…
+    layui.use(['element', 'layer'], function () {
+        var element = layui.element
+            , layer = layui.layer;
     });
-</script>
-<script type="text/javascript">
 
     function genTimestamp() {
         var time = new Date();
@@ -156,22 +153,32 @@
             }
             , success: function (data) {
                 if (data == "1") {
-                    alert("登陆成功!");
+                    layer.msg("登陆成功!", {icon: 1, time: 2000}, function(){
+                        window.location.reload();
+                    });
                     window.location.href = "${ pageContext.request.contextPath }/Jumpindex.action";
                 } else if (data == "2") {
                     window.location.href = "${ pageContext.request.contextPath }/usermanage.action";
                 } else if (data == "3") {
-                    alert("账号或密码错误!")
-                    window.location.reload();
+                    layer.msg("账号或密码错误!", {icon: 2, time: 2000}, function(){
+                        window.location.reload();
+                    });
+                    // window.location.reload();
                 } else {
-                    alert("验证码错误!")
-                    window.location.reload();
+                    layer.msg('验证码错误', {
+                        icon: 2,
+                        time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                    }, function () {
+                        window.location.reload();
+                    });
                 }
 
             },
             error: function () {
-                alert("未知错误")
-                window.location.reload();
+                layer.msg("未知错误!", {icon: 2, time: 2000}, function () {
+                    window.location.reload();
+                });
+                // window.location.reload();
             }
         });
     }

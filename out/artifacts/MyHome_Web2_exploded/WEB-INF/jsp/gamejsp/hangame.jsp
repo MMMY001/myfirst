@@ -131,7 +131,7 @@
 <script>
     layui.use(['element', 'layer'], function () {
         var element = layui.element
-        layer = layui.layer;
+            ,layer = layui.layer;
     });
 
     function buy_the_game() {

@@ -17,6 +17,7 @@ public class JumpPage {
 
     /**
      * 导航条跳转
+     *
      * @return
      */
     // 首页跳转
@@ -33,24 +34,25 @@ public class JumpPage {
 
     // 跳转关于我们
     @RequestMapping(value = "/Jumpabout.action")
-     public String Jumpabout(){
+    public String Jumpabout() {
         return "managerjsp/aboutUs";
     }
 
     // 跳转联系我们
     @RequestMapping(value = "/Jumpcontact.action")
-    public String Jumpcontact(){
+    public String Jumpcontact() {
         return "managerjsp/contactUs";
     }
 
     // 跳转联系我们
     @RequestMapping(value = "/Jumpsolve.action")
-    public String Jumpsolve(){
+    public String Jumpsolve() {
         return "managerjsp/solveProb";
     }
 
     /**
      * 后台跳转
+     *
      * @return
      */
     // 管理页面跳转
@@ -66,36 +68,37 @@ public class JumpPage {
 
     /**
      * 游戏页面跳转
+     *
      * @return
      */
 
-    @RequestMapping( value = "/JumpPRG")
-    public String JumpPRG(){
+    @RequestMapping(value = "/JumpPRG")
+    public String JumpPRG() {
         return "PRG";
     }
 
-    @RequestMapping( value = "/JumpSPG")
-    public String JumpSPG(){
+    @RequestMapping(value = "/JumpSPG")
+    public String JumpSPG() {
         return "SPG";
     }
 
-    @RequestMapping( value = "/JumpSLG")
-    public String JumpSLG(){
+    @RequestMapping(value = "/JumpSLG")
+    public String JumpSLG() {
         return "SLG";
     }
 
-    @RequestMapping( value = "/JumpSIM")
-    public String JumpSIM(){
+    @RequestMapping(value = "/JumpSIM")
+    public String JumpSIM() {
         return "SIM";
     }
 
-    @RequestMapping( value = "/JumpFPS")
-    public String JumpFPS(){
+    @RequestMapping(value = "/JumpFPS")
+    public String JumpFPS() {
         return "FPS";
     }
 
-    @RequestMapping( value = "/JumpACT")
-    public String JumpACT(){
+    @RequestMapping(value = "/JumpACT")
+    public String JumpACT() {
         return "ACT";
     }
 
@@ -176,12 +179,13 @@ public class JumpPage {
 
     /**
      * 个人中心跳转
+     *
      * @param session
      * @param request
      * @return
      */
     @RequestMapping(value = "/accoutindex.action")
-    public String accoutindex(HttpSession session,HttpServletRequest request) {
+    public String accoutindex(HttpSession session, HttpServletRequest request) {
 
         return "accountjsp/acctIndex";
     }
@@ -218,7 +222,7 @@ public class JumpPage {
 
     // 修改密码
     @RequestMapping(value = "/ChangePwd.action")
-    public String ChangePwd(){
+    public String ChangePwd() {
         return "accountjsp/changepwd";
     }
 

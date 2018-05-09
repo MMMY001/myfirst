@@ -118,7 +118,7 @@
                 }
             },
             error: function () {
-                layer.mag('未知错误',{icon:5})
+                alert('未知错误!');
             }
         });
     }
